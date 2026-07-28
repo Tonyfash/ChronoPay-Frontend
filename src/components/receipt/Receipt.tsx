@@ -26,6 +26,7 @@ import { StatusChip } from "@/components/dashboard/status-chip";
 import type { Tone } from "@/components/dashboard/types";
 import { truncateHash } from "./masking";
 import { NotesEditor } from "./NotesEditor";
+import { QrBadge } from "./QrBadge";
 import type { ReceiptData, ReceiptStatus } from "./types";
 
 const statusTone: Record<ReceiptStatus, Tone> = {
@@ -227,6 +228,16 @@ export function Receipt({ receipt, loading = false, error = null }: ReceiptProps
             </dd>
           </div>
         </dl>
+
+        {/* QR verification badge — tap to verify on-chain */}
+        <div className="mt-5 flex justify-center receipt-no-print">
+          <QrBadge explorerUrl={explorerUrl} label={receipt.title} />
+        </div>
+
+        {/* Print-friendly verification text */}
+        <p className="receipt-print-only mt-4 text-[10px] text-center text-slate-500 leading-relaxed">
+          Verify this receipt: {explorerUrl}
+        </p>
       </section>
 
       <NotesEditor receiptId={receipt.id} />
